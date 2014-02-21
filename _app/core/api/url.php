@@ -125,13 +125,39 @@ class URL
     
     
     /**
-     * Sanitizes a URL
+     * Sanitizes a variable
      * 
-     * @param string  $url  URL to sanitize
+     * @param string  $variable  Variable to sanitize
      * @return string
      */
-    public static function sanitize($url)
+    public static function sanitize($variable)
     {
-        return htmlentities(urldecode($url));
+        if (is_array($variable)) {
+            array_walk_recursive($variable, function(&$item, $key) {
+                $item = htmlspecialchars(urldecode($item));
+            });
+        } else {
+            $variable = htmlspecialchars(urldecode($variable));
+        }
+        
+        return $variable;
+    }
+    
+    
+    /**
+     * Appends a get query appropriately
+     * 
+     * @param string  $url  URL base
+     * @param string  $key  Key of get variable
+     * @param string  $value  Value of get variable
+     * @return string
+     */
+    public static function appendGetVariable($url, $key, $value)
+    {
+        // set delimiter
+        $delimiter = (strpos($url, '?') !== false) ? '&' : '?';
+        
+        // return appended URL
+        return $url . $delimiter . $key . '=' . urlencode($value);
     }
 }

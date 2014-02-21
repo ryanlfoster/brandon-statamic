@@ -1,0 +1,92 @@
+.nav {
+	background: #fff;
+	position: relative;
+	width: 100%;
+	@media screen and (min-width: $break-small) {
+		box-shadow: 0 0 3px 2px rgba(0, 0, 0, .2);
+		height: 60px;
+	}
+	@media screen and (min-width: $break-medium) {
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 100;
+	}
+}
+
+.blue-bar {
+	@media screen and (min-width: 500px) {
+		width: 50%;
+		height: 100%;
+		position: absolute;
+		background: $green;
+		top: 0;
+		left: 0;
+	}
+}
+.nav .container {
+	background: #fff;
+	height: 100%;
+}
+.brand {
+	color: #222;
+	display: block;
+	font-family: $heading-font;
+	@include rem(18);
+	letter-spacing: 1px;
+	line-height: 60px;
+	text-transform: uppercase;
+	text-align: center;
+	@media screen and (min-width: 500px) {
+		background: $green;
+		color: #fff;
+		float: left;
+		margin: 0 0 0 -1em;
+		padding: 0 3em 0 1em;
+		&:focus, &:active {
+			color: #fff;
+		}
+	}
+	&:hover {
+		text-decoration: none;
+	}
+}
+.top-nav {
+	display: inline;
+	float: left;
+}
+.top-nav li {
+	line-height: 60px;
+	margin-left: 1.5em;
+}
+.top-nav li, .top-nav li a {
+	color: #222;
+	display: inline-block;
+	font-family: $heading-font;
+	@include rem(13);
+	text-transform: uppercase;
+}
+.contact-link {
+	border: 2px solid #000;
+	color: #222;
+	display: block;
+	font-family: $heading-font;
+	@include rem(13);
+	margin-top: 10px;
+	padding: 3px 12px;
+	text-transform: uppercase;
+	&:hover, &:focus {
+		background: $green;
+		color: #fff;
+		text-decoration: none;
+	}
+	@media screen and (min-width: $break-small) {
+		float: right;
+	}
+}
+
+
+
+
+
+

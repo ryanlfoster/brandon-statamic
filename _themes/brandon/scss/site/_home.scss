@@ -1,0 +1,12 @@
+.blog-home {
+	background: #05ae3b;
+	border-top: 10px solid rgba(0,0,0,0.03);
+	border-bottom: 10px solid rgba(0,0,0,0.03);
+	padding: 3em 0;
+	@media screen and (min-width: $break-medium) {
+		padding: 6em;
+	}
+}
+.blog-home h2, .blog-home h2 small, .blog-home h3, .blog-home p, .blog-home a {
+	color: #fff;
+}

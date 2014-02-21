@@ -1,0 +1,39 @@
+<section>
+  <header class="work-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+          <h1 class="work-title">{{ title }}</h1>
+          {{ if categories }}
+          <p class="work-categories"><em>{{ categories|list }}</em></p>
+          {{ endif }}
+          {{ if siteurl }}
+            <p class="text-center"><a href="{{ siteurl }}" class="btn btn-default">Launch site</a></p>
+          {{ endif }}
+        </div>
+      </div>
+      {{ if content }}
+      <div class="row work-desc">
+        <div class="col-md-8 col-md-offset-2">
+          {{ content }}
+        </div>
+      </div>
+      {{ endif }}
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1">
+        <ul class="work-images">
+        {{  grid }}
+          <li class="fade-in">
+            <img class="screenshot" src="{{ image }}" />
+          </li>
+        {{ /grid }}
+        </ul>
+      </div>
+    </div>
+  </div>
+  <br><br>
+</section>

@@ -7,7 +7,7 @@ fields:
 
   upload:
     type: file
-    destination: assets/img/blog/
+    destination: assets/img
 
   content:
     display: Page Content

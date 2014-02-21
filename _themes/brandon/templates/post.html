@@ -1,0 +1,29 @@
+<article class="blogarticle">
+  <header class="entry-header">
+    <h1 class="entry-title container">{{ title }}</h2>
+    <p class="entry-date"> {{ datestamp format="F jS, Y" }}</p>
+  </header>
+  <div class="entry-content">
+    
+    {{ content }}
+    
+    {{ if categories }}
+      <hr>
+      <p class="entry-meta"> Filed under {{ categories_url_list }}.</p>
+    {{ endif }}
+
+  </div>
+</article>
+
+{{ entries:previous folder="blog" }}
+    {{ if !no_results }}
+        <div class="prev-post">
+          <a href="{{ url }}">
+            <p class="prev-post-next">Previous Article</p>
+            <h3 class="prev-post-title text-center">{{ title }}</h3>
+          </a>
+        </div>
+    {{ endif }}
+{{ /entries:previous }}
+
+

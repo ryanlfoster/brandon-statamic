@@ -1,0 +1,1 @@
+$(window).load(function(){$.localScroll();$(".flexslider").flexslider({animation:"slide",animationLoop:!0,itemWidth:403,itemMargin:5,move:1,minItems:1,maxItems:4})});

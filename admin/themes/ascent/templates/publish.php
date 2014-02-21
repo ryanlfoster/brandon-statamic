@@ -98,7 +98,7 @@
         </div>
 
         <?php if ($slug !== '/'): ?>
-        <div class="input-block input-text required">
+        <div class="input-block input-text required<?php if (array_get($fields, 'slug:hide', false) === true):?> hidden<?php endif ?>">
           <label for="publish-slug"><?php echo Localization::fetch('slug') ?></label>
           <input type="text" id="publish-slug" data-required="true" tabindex="<?php print tabindex(); ?>" class="text<?php if (isset($new)): ?> auto-slug <?php endif ?>" name="page[meta][slug]" value="<?php print $slug ?>" />
         </div>
@@ -135,11 +135,11 @@
         <?php
         foreach ($fields as $key => $value):
 
-          if ($key === 'title')
+          if ($key === 'title' || $key === 'slug')
             continue;
 
           // The default fieldtype is Text.
-          $fieldtype = isset($value['type']) ? $value['type'] : 'text';
+          $fieldtype = array_get($value, 'type', 'text');
 
           // Value
           $val = "";
@@ -155,17 +155,29 @@
           }
 
           // If no display label is set, we'll prettify the fieldname itself
-          if ( ! isset($value['display'])) {
-            $value['display'] = Slug::prettify($key);
-          }
+          $value['display'] = array_get($value, 'display', Slug::prettify($key));
 
           // By default all fields are part of the 'yaml' key. They may need to be overridden
           // to set a meta/system field, like Content.
           $input_key = array_get($value, 'input_key', '[yaml]');
 
+          $wrapper_attributes = array();
+          $wrapper_classes = array(
+             'input-block',
+             'input-' . $fieldtype
+           );
+
+          if ( array_get($value, 'required', false)  === TRUE) {
+            $wrapper_classes[] = 'required';
+          }
+
+          if ( array_get($value, 'hide', false)  === TRUE) {
+            $wrapper_classes[] = 'hidden';
+          }
+
         ?>
 
-        <div class="input-block input-<?php print $fieldtype?> <?php if ( isset($value['required']) && $value['required'] === TRUE) print ' required'?>">
+        <div class="<?php echo implode($wrapper_classes, ' ')?>" <?php echo implode($wrapper_attributes, ' ')?>>
           <?php print Fieldtype::render_fieldtype($fieldtype, $key, $value, $val, tabindex(), $input_key);?>
         </div>
 

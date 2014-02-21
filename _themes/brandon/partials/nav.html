@@ -1,0 +1,27 @@
+<nav class="nav" role="navigation">
+  <div class="blue-bar"></div>
+  <div class="container clearfix">
+    <a href="{{ homepage }}" class="brand">Brandon Ewoldt</a>
+    <ul class="top-nav unstyled">
+
+      {{ nav from="/" }}
+        <li>
+          <a href="{{ url }}"{{ if is_current || is_parent }} class="current"{{ endif }}>{{ title }}</a>
+        </li>
+      {{ /nav }}
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- <nav class="nav" role="navigation">
+  <div class="blue-bar"></div>
+    <div class="container clearfix">
+        <a href="{{ homepage }}" class="brand">Brandon Ewoldt</a>
+        <ul class="top-nav unstyled">
+          <li><a href="<?php echo url() ?>#work">Work</a></li>
+          <li><a href="<?php echo url() ?>blog">Blog</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+</nav> -->

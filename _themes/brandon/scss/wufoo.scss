@@ -1,0 +1,17 @@
+
+.wufoo .info{
+	display: none !important;
+}
+.wufoo input.text,
+.wufoo textarea.textarea {
+	padding: .5em;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+form li.leftHalf, form li.rightHalf {
+	@media screen and (max-width: 768px) {
+		float: none;
+		width: 98% !important;
+	}
+}

@@ -1,0 +1,13 @@
+---
+first_name: Brandon
+last_name: Ewoldt
+roles:
+  - admin
+email: bewoldt1@gmail.com
+password: ""
+_uid: 1CjWKl530427fa2e050rsLQSBHZ
+password_hash: $2a$08$IhWNkw5N3S2Q0ELDfc0Vg.RUzIrk4YI7rvR.CbVpqaJFX5QEGHE4C
+---
+&lt;p&gt;The username is the name of the yaml file. In this case it is “admin”.&lt;/p&gt;
+
+&lt;p&gt;Uncomment and set your password above and MAKE SURE TO ENCRYPT YOUR PASSWORD in the Control Panel, automatically triggered by logging in. You can reset your password by deleting the encrypted password field and adding a new plain text password, but always make sure to log in again to re-encrypt. All user accounts created in the Control Panel are encrypted by default.&lt;/p&gt;

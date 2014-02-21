@@ -1,0 +1,33 @@
+title: Work
+
+fields:
+  title:
+
+  categories:
+    display: Categories
+    required: false
+    default:
+    type: tags
+
+  thumb:
+    type: file
+    destination: assets/img/
+    instructions:
+      below: Homepage Placeholder Image
+
+  siteurl:
+    type: text
+    display: Site URL (http://)
+
+  content:
+    type: textarea
+    display: Content
+
+  grid:
+    display: Project Images
+    type: grid
+    starting_rows: 1
+    fields:
+      image:
+        type: file
+        destination: assets/img/work/

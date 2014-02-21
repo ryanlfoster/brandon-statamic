@@ -1,0 +1,22 @@
+<section id="work" class="work-home">
+  <div class="container">
+    <br>
+    <br>
+    <h2 class="title">Work<small>Selected Projects</small></h2>
+    <br>
+    <ul class="justify clearfix">
+      {{ entries:listing folder="work" limit="6" }}
+        <li>
+            <a href="{{ url }}">
+              <img src="{{ thumb }}" alt="{{ title }}">
+              <h4>{{ title }}</h4>
+              <h5>{{ categories|list }}</h5>
+            </a>
+        </li>
+      {{ /entries:listing }}
+    </ul>
+
+    <a href="http://www.behance.net/brandone" class="behance talk" onclick="_gaq.push(['_trackEvent', 'Link', 'Behance']);"><b>view my complete portfolio</b></a>
+  
+  </div>
+</section>

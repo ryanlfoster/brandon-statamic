@@ -2,17 +2,16 @@ title: Camp Spot
 
 fields:
   title:
-    instructions: These are instructions.
-
-  where:
-    display: Spot
-    type: location
 
   comment:
     type: textarea
-    display: Comment
+    display: Content
+
+  upload:
+    type: file
+    destination: assets/img/
     instructions:
-      below: A little about the camp spot.
+      below: Homepage Placeholder Image
 
   content:
     display: Page Content

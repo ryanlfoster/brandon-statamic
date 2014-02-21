@@ -43,9 +43,8 @@
           <div class="page-primary">
           <?php
           $base = $page['slug'];
-
           if ($page['type'] == 'file'): ?>
-            <a href="<?php print $app->urlFor('publish')."?path={$page['url']}"; ?>"><span class="page-title"><?php print (isset($page['title']) && $page['title'] <> '') ? $page['title'] : Slug::prettify($page['slug']) ?></span></a>
+            <a href="<?php print $app->urlFor('publish')."?path={$page['slug']}"; ?>"><span class="page-title"><?php print (isset($page['title']) && $page['title'] <> '') ? $page['title'] : Slug::prettify($page['slug']) ?></span></a>
           <?php elseif ($page['type'] == 'home'): ?>
             <a href="<?php print $app->urlFor('publish')."?path={$page['url']}"; ?>"><span class="page-title"><?php print $page['title'] ?></span></a>
           <?php else:
@@ -118,9 +117,9 @@
 
       <!-- PAGE TITLE -->
         <?php if ($page['type'] == 'file'): ?>
-          <a href="<?php print $app->urlFor('publish')."?path={$base}/{$page['slug']}"; ?>"><span class="page-title"><?php print isset($page['title']) ? $page['title'] : Statamic_Helper::prettify($page['slug']) ?></span></a>
+          <a href="<?php print $app->urlFor('publish')."?path={$base}/{$page['slug']}"; ?>"><span class="page-title"><?php print isset($page['title']) ? $page['title'] : Slug::prettify($page['slug']) ?></span></a>
         <?php else: ?>
-          <a href="<?php print $app->urlFor('publish')."?path={$page['file_path']}"; ?>"><span class="page-title"><?php print isset($page['title']) ? $page['title'] : Statamic_Helper::prettify($page['slug']) ?></span></a>
+          <a href="<?php print $app->urlFor('publish')."?path={$page['file_path']}"; ?>"><span class="page-title"><?php print isset($page['title']) ? $page['title'] : Slug::prettify($page['slug']) ?></span></a>
 
         <?php endif ?>
 
