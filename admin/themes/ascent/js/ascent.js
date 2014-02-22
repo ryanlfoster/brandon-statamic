@@ -51,16 +51,7 @@ $(function() {
   // Tablesorter
   //
   /////////////////////////////////////////
-
-  $('.log-sortable').tablesorter({
-    headers: {
-      1: {
-        sorter: "hidden-date"
-      }
-    }
-  });
-
-  $('.sortable').tablesorter();
+	
 
   // Tablesorter
   $.tablesorter.addParser({
@@ -73,6 +64,24 @@ $(function() {
     },
     type: 'numeric'
   });
+
+  $('.log-sortable').tablesorter({
+    headers: {
+      1: {
+        sorter: "hidden-date"
+      }
+    }
+  });
+	
+  $('.entries-sortable').tablesorter({ 
+    headers: {
+	2: {
+	  sorter: "hidden-date"
+	}
+    }
+  });
+
+  $('.sortable').tablesorter();
 
 
 

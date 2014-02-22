@@ -268,14 +268,11 @@ $admin_app->get('/pages', function() use ($admin_app) {
 $admin_app->get('/entries', function() use ($admin_app) {
   authenticateForRole('admin');
   doStatamicVersionCheck($admin_app);
-  $content_root = Config::getContentRoot();
   $template_list = array("entries");
 
-  $path = "";
   $path = $admin_app->request()->get('path');
   $errors = array();
-
-  $path = $admin_app->request()->get('path');
+    
   if ($path) {
     $entry_type = Statamic::get_entry_type($path);
 
@@ -833,7 +830,8 @@ $admin_app->post('/publish', function() use ($admin_app) {
       }
     }
       
-    // ensure that $new_file starts with a /
+    // ensure that both variables are coming from the same place
+    $file = Path::addStartingSlash($file);
     $new_file = Path::addStartingSlash($new_file);
 
     if ($file !== $new_file) {
@@ -1257,7 +1255,7 @@ $admin_app->post('/member', function() use ($admin_app) {
   $member = null;
   if (empty($errors)) {
       if ($is_new) {
-          $member = new Member($submission);
+          $member = new Member(array());
           $member->set('username', $username);
       } else {
           try {
@@ -1284,15 +1282,18 @@ $admin_app->post('/member', function() use ($admin_app) {
     
   // set variables
   foreach ($submission as $key => $value) {
-      if ($key == 'password_confirmation') {
-          continue;
-      }
-      
       if ($key == 'password' && $value == '') {
           continue;
       }
       
-      $member->set($key, $value);
+      $field_config = array_get($config, $key, array());
+      
+      // only save values if save_value isn't false
+      if (array_get($field_config, 'save_value', true)) {
+          $member->set($key, $value);
+      } else {
+          $member->remove($key);
+      }
   }
     
   // save member
@@ -1333,9 +1334,15 @@ $admin_app->get('/member', function() use ($admin_app) {
     $data['status_message'] = Localization::fetch('editing_member');
   }
 
-  $data['fields'] = YAML::parse(URL::assemble(Config::getConfigPath(), 'bundles', 'member', 'fields.yaml'));
+  $data['fields'] = YAML::parse(Config::getConfigPath().'/bundles/member/fields.yaml');
   $data['original_name'] = $original_name;
   $data['full_name'] = array_get($data, 'first_name', $name) . ' ' . array_get($data, 'last_name', '');
+
+  // overwrite 'biography' as it needs to be 'biography_raw' here
+  if (isset($data['fields']['fields']['biography'])) {
+      $data['fields']['fields']['biography_raw'] = $data['fields']['fields']['biography'];
+      unset($data['fields']['fields']['biography']);
+  }
 
   $template_list = array("member");
     

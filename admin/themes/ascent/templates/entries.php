@@ -27,7 +27,7 @@
 
   <form action="<?php print $app->urlFor('delete_entry')?>" action="POST">
     <div class="section">
-      <table class="simple-table sortable">
+      <table class="simple-table <?php echo ($type == 'date') ? "entries-" : ''; ?>sortable">
         <thead>
           <tr>
             <th class="checkbox-col"></th>
@@ -55,7 +55,11 @@
             </td>
 
             <?php if ($type == 'date'): ?>
-              <td><?php print date("Y/m/d", strtotime(@$entry['date']))?></td>
+              <td data-fulldate="<?php echo $entry['datestamp']; ?>">
+                  <?php
+                  echo Date::format(Config::getDateFormat('Y/m/d'), $entry['datestamp']);
+                  ?>
+              </td>
             <?php elseif ($type == 'number'): ?>
               <td><?php print $entry['numeric'] ?></td>
             <?php endif ?>
