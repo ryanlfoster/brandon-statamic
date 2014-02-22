@@ -27,7 +27,7 @@ _site_name: Brandon Ewoldt
 _content_root: _content
 
 # Used for permalinks
-_site_url: http://statamic.com
+_site_url: http://brandonewoldt.com
 
 # Folder name of your desired theme
 _theme: brandon
@@ -42,7 +42,7 @@ _date_format: 'F jS, Y'
 _time_format: 'g:i.s a'
 
 # Timezone
-_timezone: America/New_York
+_timezone: America/Chicago
 
 # List of desired taxonomy triggers
 _taxonomy:

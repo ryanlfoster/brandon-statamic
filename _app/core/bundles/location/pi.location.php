@@ -26,6 +26,16 @@ class Plugin_location extends Plugin {
         // parse settings
         $settings = $this->parseParameters();
         
+        // we need to set auto_center to false, here's why:
+        // this tag will only ever place one marker on the map, and because of
+        // the situation, we'll always know its latitude and longitude; by not
+        // setting auto_center to false, starting_zoom no longer works (as the
+        // auto_center function will try to determine the best zoom within the
+        // allowed min_zoom and max_zoom); setting this to false allows users
+        // to start using starting_zoom again without having to worry about any
+        // automagic stuff taking over and wrestling away control
+        $settings['auto_center'] = 'false';
+        
         $content_set = ContentService::getContentAsContentSet($settings['url']);
         
         // supplement
@@ -165,6 +175,9 @@ class Plugin_location extends Plugin {
         $html .= ' auto_center: ' . $settings['auto_center'] . '};';
 
         $html .= '</script>';
+        
+        // mark that the build script has run, and thus, smart_include should include
+        $this->blink->set('maps_used', true);
         
         return $html;
     }
@@ -361,6 +374,14 @@ class Plugin_location extends Plugin {
      * @return string
      */
     public function start_maps() {
+        $smart_include = $this->fetchParam('smart_include', false, null, true, false);
+        
+        // if smart_include is on and maps haven't been used on this page,
+        // short-circuit this method and return nothing
+        if ($smart_include && !$this->blink->get('maps_used')) {
+            return '';
+        }
+        
         $add_on_path = Path::tidy(Config::getSiteRoot() . Config::getAddOnPath("location"));
         $override    = (File::exists($add_on_path . '/css/override.css')) ? '<link href="' . $add_on_path . '/css/override.css" rel="stylesheet" />' : '';
 
@@ -407,7 +428,7 @@ class Plugin_location extends Plugin {
                             doubleClickZoom: _map.double_click_zoom,
                             boxZoom: _map.box_zoom,
                             touchZoom: _map.touch_zoom,
-                            draggable: _map.draggable
+                            dragging: _map.draggable
                         });
                         
                         if (bounds) {

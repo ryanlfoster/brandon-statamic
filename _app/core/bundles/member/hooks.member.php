@@ -102,7 +102,14 @@ class Hooks_member extends Hooks
             
             // set value
             $value = filter_input(INPUT_POST, $field, FILTER_SANITIZE_STRING);
-            $member->set($field, $value);
+            
+            // don't store this value if `save_value` is set to `false`
+            if (array_get($options, 'save_value', true)) {
+                $member->set($field, $value);
+            }
+            
+            // add to submissions, including non-save_value fields because this
+            // is the list that will be validated
             $submission[$field] = $value;
         }
         
@@ -202,10 +209,11 @@ class Hooks_member extends Hooks
         $role_definitions = $this->fetchConfig('role_definitions');
         
         // who are we editing?
-        $username = Helper::pick(filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING), $member->get('username'));
+        $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
+        $username = (!$username) ? $member->get('username') : $username;
         
         // if the user isn't the current user, ensure that's allowed
-        if ($username != $member->get('username')) {
+        if ($username !== $member->get('username')) {
             // username is different from current user
             if (!array_get($role_definitions, 'edit_other_users', null) || !$member->hasRole($role_definitions['edit_other_users'])) {
                 // this user does not have permission to do this
@@ -226,14 +234,28 @@ class Hooks_member extends Hooks
         // loop through allowed fields, validating and updating
         foreach ($allowed_fields as $field => $options) {
             if (!isset($_POST[$field])) {
-                // field wasn't set, skip it
-                continue;
+                // was this username? that can be included separately
+                if ($field === 'username') {
+                    $value = $username;
+                } else {
+                    // field wasn't set, skip it
+                    continue;
+                }
+            } else {
+                // set value
+                $value = filter_input(INPUT_POST, $field, FILTER_SANITIZE_STRING);
             }
-            
+
             // set value
-            $value = filter_input(INPUT_POST, $field, FILTER_SANITIZE_STRING);
             $old_values[$field] = $value;
-            $member->set($field, $value);
+
+            // don't store this value if `save_value` is set to `false`
+            if (array_get($options, 'save_value', true)) {
+                $member->set($field, $value);
+            }
+
+            // add to submissions, including non-save_value fields because this
+            // is the list that will be validated
             $submission[$field] = $value;
         }
         

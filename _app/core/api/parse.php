@@ -30,8 +30,8 @@ class Parse
     /**
      * Parse and transform Markdown strings into HTML
      *
-     * @param string  $text  text to transform
-     * @return array
+     * @param string  $string  text to transform
+     * @return string
      */
     public static function markdown($string)
     {
@@ -47,11 +47,11 @@ class Parse
         return $parser->transform($string);
     }
 
-        /**
+    /**
      * Parse and transform Textile strings into HTML
      *
-     * @param string  $text  text to transform
-     * @return array
+     * @param string  $string  text to transform
+     * @return string
      */
     public static function textile($string)
     {
@@ -62,7 +62,7 @@ class Parse
     /**
      * Translate plain ASCII punctuation characters into "smart" typographic punctuation HTML entities.
      *
-     * @param string  $text  text to transform
+     * @param string  $string  text to transform
      * @return array
      */
     public static function smartypants($string)
@@ -116,6 +116,7 @@ class Parse
      *
      * @param string  $content  Template for replacing
      * @param array  $data  Array of arrays containing values
+     * @param bool  $supplement  Supplement each loop with contextual information?
      * @return string
      */
     public static function tagLoop($content, $data, $supplement = false)
@@ -179,7 +180,7 @@ class Parse
     public static function condition($condition)
     {
         // has a colon, is a comparison
-        if (strstr($condition, ":") !== FALSE) {
+        if (strstr($condition, ":") !== false) {
             // breaks this into key => value
             $parts  = explode(":", $condition, 2);
 
@@ -301,7 +302,28 @@ class Parse
                     "type" => "less than",
                     "value" => substr($value, 2)
                 );
-            } else {
+            } elseif (substr($value, 0, 1) == '~') {
+                // contains
+                $item = array(
+                    'kind' => 'comparison',
+                    'type' => 'contains text',
+                    'value' => substr($value, 1)
+                );
+            } elseif (substr($value, 0, 2) == '~ ') {
+                // contains
+                $item = array(
+                    'kind' => 'comparison',
+                    'type' => 'contains text',
+                    'value' => substr($value, 2)
+                );
+            } elseif (substr($value, 0, 9) == 'contains ') {
+                // contains
+                $item = array(
+                    'kind' => 'comparison',
+                    'type' => 'contains text',
+                    'value' => substr($value, 9)
+                );
+            } else{
                 $item = array(
                     "kind" => "comparison",
                     "type" => "equal",
