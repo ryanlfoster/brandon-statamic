@@ -1,11 +1,12 @@
-<article class="blogarticle">
+<article class="blogarticle" itemscope itemtype="http://schema.org/Article">
   <header class="entry-header">
-    <h1 class="entry-title container">{{ title }}</h2>
-    <p class="entry-date"> {{ datestamp format="F jS, Y" }}</p>
+    <h1 class="entry-title container" itemprop="name">{{ title }}</h1>
+    <p class="entry-date"><time itemprop="datePublished" datetime="{{ datestamp format="c" }}">{{ datestamp format="F jS, Y" }}</time> by <span itemprop="author" itemscope itemtype="http://schema.org/Person"><a href="https://plus.google.com/114092254419895963705" itemprop="url" rel="author"><span itemprop="name">{{ member:profile member="{author}" }}{{ first_name }} {{ last_name }}{{ /member:profile }}</span></a></span></p>
   </header>
   <div class="entry-content">
-    
-    {{ content }}
+    <div itemprop="articleBody">
+      {{ content }}
+    </div>
     
     {{ if categories }}
       <hr>
