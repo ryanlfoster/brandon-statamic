@@ -20,8 +20,8 @@ fields:
     display: Site URL (http://)
 
   content:
-    type: textarea
-    display: Content
+    type: redactor
+    image_dir: assets/img/work/
 
   grid:
     display: Project Images
