@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>{{ title }} | {{ _site_name }}</title>
+  <title>{{ if page_title }} {{ page_title }} {{ else }} {{ title }} {{ endif }}| {{ _site_name }}</title>
+  {{ if page_desc }}<meta name="description" content="{{ page_desc }}">{{ endif }}
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- CSS -->

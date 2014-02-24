@@ -1,4 +1,5 @@
 title: Standard Page
+include: meta
 
 fields:
   _template:
@@ -12,6 +13,8 @@ fields:
   content:
     display: Page Content
     required: false
-    default:
-    type: markitup
+    type: redactor
+    image_dir: assets/img/
+
+
 
